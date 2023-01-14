@@ -1,0 +1,311 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Jxereas/UI-Libraries/main/cerberus.lua"))()
+local window = Library.new("Strolla") -- Args(<string> Name, <boolean?> ConstrainToScreen)
+
+local tab1 = window:Tab("Main") -- Args(<string> Name, <string?> TabImage)
+local section1 = tab1:Section("Locks") -- Args(<string> Name)
+local title = section1:Title("Locks") -- Args(<string> Name)
+section1:Button("Streamable", function()
+     -- 0.138
+-- 0.11243
+loadstring(game:HttpGet("https://raw.githubusercontent.com/topillesrevenge/Streamable-Silent/main/Main"))()
+DaHoodSettings.Prediction = 0.121
+Aiming.TargetPart = {"Head", "LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm", "LeftUpperArm", "RightUpperArm", "LeftFoot", "LeftLowerLeg", "UpperTorso", "HumanoidRootPart", "LeftUpperLeg", "RightLowerLeg", "RightFoot", "LowerTorso"}
+Aiming.FOV = 25
+Aiming.FOVSides = 25
+Aiming.HitChance = 400
+Aiming.ShowFOV = false
+end) -- Args(<String> Name, <Function> Callback)
+section1:Button("Purplebox lock (Q)", function()
+   --[[
+███████╗██╗░░░░░░█████╗░░██████╗██╗░░██╗░██╗░░░░░░░██╗
+██╔════╝██║░░░░░██╔══██╗██╔════╝██║░░██║░██║░░██╗░░██║
+█████╗░░██║░░░░░███████║╚█████╗░███████║░╚██╗████╗██╔╝
+██╔══╝░░██║░░░░░██╔══██║░╚═══██╗██╔══██║░░████╔═████║░
+██║░░░░░███████╗██║░░██║██████╔╝██║░░██║░░╚██╔╝░╚██╔╝░
+╚═╝░░░░░╚══════╝╚═╝░░╚═╝╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░
+
+]]
+-- Toggle
+getgenv().Target = true
+-- Configuration
+getgenv().Key = Enum.KeyCode.Q
+getgenv().Prediction = 0.12405
+getgenv().ChatMode = false
+getgenv().NotifMode = true
+    getgenv().PartMode = true
+    getgenv().AirshotFunccc = true
+    getgenv().Partz = "HumanoidRootPart"
+getgenv().AutoPrediction = false
+--
+    _G.Types = {
+        Ball = Enum.PartType.Ball,
+        Block = Enum.PartType.Block, 
+        Cylinder = Enum.PartType.Cylinder
+    }
+    
+    --variables                 
+    	local Tracer = Instance.new("Part", game.Workspace)
+    Tracer.Name = "gay"	
+    Tracer.Anchored = true		
+    Tracer.CanCollide = false
+    Tracer.Transparency = 0.8
+    Tracer.Parent = game.Workspace	
+    Tracer.Shape = _G.Types.Block
+    Tracer.Size = Vector3.new(14,14,14)
+    Tracer.Color = Color3.fromRGB(255,7,255)
+    
+    --
+    local plr = game.Players.LocalPlayer
+local mouse = plr:GetMouse()
+local Runserv = game:GetService("RunService")
+
+circle = Drawing.new("Circle")
+circle.Color = Color3.fromRGB(171,0,255)
+circle.Thickness = 0
+circle.NumSides = 732
+circle.Radius = 120
+circle.Thickness = 0
+circle.Transparency = 0.7
+circle.Visible = true
+circle.Filled = false
+
+Runserv.RenderStepped:Connect(function()
+    circle.Position = Vector2.new(mouse.X,mouse.Y+35)
+end)
+    
+    	local guimain = Instance.new("Folder", game.CoreGui)
+    	local CC = game:GetService"Workspace".CurrentCamera
+    local LocalMouse = game.Players.LocalPlayer:GetMouse()
+    	local Locking = false
+    
+    	
+    --
+    if getgenv().valiansh == true then
+                        game.StarterGui:SetCore("SendNotification", {
+                   Title = "Valiant",
+                   Text = "Already Loaded!",
+                   Duration = 5
+        
+                   })
+        return
+    end
+    
+    getgenv().valiansh = true
+    
+        local UserInputService = game:GetService("UserInputService")
+
+    UserInputService.InputBegan:Connect(function(keygo,ok)
+           if (not ok) then
+           if (keygo.KeyCode == getgenv().Key) then
+               if getgenv().Target == true then
+               Locking = not Locking
+               
+               if Locking then
+               Plr =  getClosestPlayerToCursor()
+                if getgenv().ChatMode then
+        local A_1 = "Target: "..tostring(Plr.Character.Humanoid.DisplayName) local A_2 = "All" local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest Event:FireServer(A_1, A_2) 
+        	end	
+               if getgenv().NotifMode then
+    			game.StarterGui:SetCore("SendNotification", {
+        Title = "";
+        Text = "Target: "..tostring(Plr.Character.Humanoid.DisplayName);
+    
+    })
+    end
+    elseif not Locking then
+         if getgenv().ChatMode then
+        local A_1 = "Unlocked!" local A_2 = "All" local Event = game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest Event:FireServer(A_1, A_2) 
+        	end	
+        if getgenv().NotifMode then
+                        game.StarterGui:SetCore("SendNotification", {
+                   Title = "",
+                   Text = "Unlocked",
+                   Duration = 5
+               })
+           elseif getgenv().Target == false then
+                        game.StarterGui:SetCore("SendNotification", {
+                   Title = "",
+                   Text = "Target isn't enabled",
+                   Duration = 5
+     
+                   })
+               
+               end
+                  
+ 
+ end     end   
+end
+end
+end)
+	
+	function getClosestPlayerToCursor()
+		local closestPlayer
+		local shortestDistance = circle.Radius
+
+		for i, v in pairs(game.Players:GetPlayers()) do
+			if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("LowerTorso") then
+				local pos = CC:WorldToViewportPoint(v.Character.PrimaryPart.Position)
+				local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(LocalMouse.X, LocalMouse.Y)).magnitude
+				if magnitude < shortestDistance then
+					closestPlayer = v
+					shortestDistance = magnitude
+				end
+			end
+		end
+		return closestPlayer
+	end
+--
+if getgenv().PartMode then
+	game:GetService"RunService".Stepped:connect(function()
+		if Locking and Plr.Character and Plr.Character:FindFirstChild("LowerTorso") then
+			Tracer.CFrame = CFrame.new(Plr.Character.LowerTorso.Position+(Plr.Character.LowerTorso.Velocity*Prediction))
+		else
+			Tracer.CFrame = CFrame.new(0, 9999, 0)
+
+		end
+	end)
+end
+
+    
+    
+    --
+	local rawmetatable = getrawmetatable(game)
+	local old = rawmetatable.__namecall
+	setreadonly(rawmetatable, false)
+	rawmetatable.__namecall = newcclosure(function(...)
+		local args = {...}
+		if Locking and getnamecallmethod() == "FireServer" and args[2] == "UpdateMousePos" then
+			args[3] = Plr.Character[getgenv().Partz].Position+(Plr.Character[getgenv().Partz].Velocity*Prediction)
+			return old(unpack(args))
+		end
+		return old(...)
+	end)
+
+
+if getgenv().AirshotFunccc == true then
+
+            if Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
+                getgenv().Partz = "RightFoot"
+            else
+                Plr.Character:WaitForChild("Humanoid").StateChanged:Connect(function(old,new)
+                    if new == Enum.HumanoidStateType.Freefall then
+                    getgenv().Partz = "RightFoot"
+                    else
+                        getgenv().Partz = "LowerTorso"
+                    end
+                end)
+            end
+end
+---
+	while wait() do
+	if getgenv().AutoPrediction == false then 
+        local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
+        local split = string.split(pingvalue,'(')
+        local ping = tonumber(split[1])
+        if ping < 130 then
+            getgenv().Prediction = 0.151
+        elseif ping < 125 then
+            getgenv().Prediction = 0.149
+        elseif ping < 110 then
+            getgenv().Prediction = 0.146
+        elseif ping < 105 then
+            getgenv().Prediction = 0.138
+        elseif ping < 90 then
+            getgenv().Prediction = 0.136
+        elseif ping < 80 then
+            getgenv().Prediction = 0.134
+        elseif ping < 70 then
+            getgenv().Prediction = 0.131
+        elseif ping < 60 then
+            getgenv().Prediction = 0.160
+        elseif ping < 50 then
+            getgenv().Prediction = 0.153
+        elseif ping < 40 then
+            getgenv().Prediction = 0.15529888
+        end
+	end
+    end
+end) -- Args(<String> Name, <Function> Callback)
+
+local section2 = tab1:Section("Dont get caught") -- Args(<string> Name)
+local title = section2:Title("Useful shit") -- Args(<string> Name)
+section2:Button("Resolver works in most hood games", function()
+   getgenv().VelocityChanger = true
+getgenv().Velocity = Vector3.new(200,0,200)
+
+
+--// main scapt | realkscapter... omg
+local Players     = game:GetService("Players")
+local RunService  = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local Character   = LocalPlayer.Character
+local RootPart    = Character:FindFirstChild("HumanoidRootPart")
+
+local Heartbeat, RStepped, Stepped = RunService.Heartbeat, RunService.RenderStepped, RunService.Stepped
+
+LocalPlayer.CharacterAdded:Connect(function(NewCharacter)
+   Character = NewCharacter
+end)
+
+local RVelocity, YVelocity = nil, 0.1
+
+while true do
+   if VelocityChanger then
+       --// this a dumb check asnilsadsa
+       if (not RootPart) or (not RootPart.Parent) or (not RootPart.Parent.Parent) then
+           warn("weird ahh died")
+           RootPart = Character:FindFirstChild("HumanoidRootPart")
+       else
+           RVelocity = RootPart.Velocity
+   
+           RootPart.Velocity = type(Velocity) == "vector" and Velocity or Velocity(RVelocity)
+       
+           RStepped:wait()
+       
+           RootPart.Velocity = RVelocity
+       end
+   end
+   
+   Heartbeat:wait()
+end
+end) -- Args(<String> Name, <Function> Callback)
+
+section2:Button("Anti Aim Viewer", function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/Nosssa/NossLock/main/AntiAimViewer"))()
+end) -- Args(<String> Name, <Function> Callback)
+local section3 = tab1:Section("Catch lockers") -- Args(<string> Name)
+local title = section3:Title("Catch em all") -- Args(<string> Name)
+section3:Button("VinGui", function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/Nosssa/NossLock/main/VinGUI"))()
+end) -- Args(<String> Name, <Function> Callback)
+section3:Button("Leaked underground AA (T)", function()
+  local Toggled = false
+local KeyCode = 'T'
+
+
+function AA()
+    local oldVelocity = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(oldVelocity.X, -70, oldVelocity.Z)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(oldVelocity.X, oldVelocity.Y, oldVelocity.Z)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(oldVelocity.X, -70, oldVelocity.Z)
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 4.14
+end
+
+game:GetService('UserInputService').InputBegan:Connect(function(Key)
+    if Key.KeyCode == Enum.KeyCode[KeyCode:upper()] and not game:GetService('UserInputService'):GetFocusedTextBox() then
+        if Toggled then
+            Toggled = false
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 1.85
+
+        elseif not Toggled then
+            Toggled = true
+
+            while Toggled do
+                AA()
+                task.wait()
+            end
+        end
+    end
+end)
+end) -- Args(<String> Name, <Function> Callback)
